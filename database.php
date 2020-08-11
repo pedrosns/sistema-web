@@ -44,6 +44,20 @@ class Database {
 		return $sentencia->execute();
 	}
 
+	public function update_producto($id, $data) {
+		$sentencia = $this->pdo->prepare("UPDATE productos SET nombre=:nombre, descripcion=:descripcion, costo=:costo, cantidad=:cantidad
+			WHERE id=:id
+			");
+
+		$sentencia->bindParam(':id', $id, PDO::PARAM_INT);
+		$sentencia->bindParam(':nombre', $data['nombre'], PDO::PARAM_STR);
+		$sentencia->bindParam(':descripcion', $data['descripcion'], PDO::PARAM_STR);
+		$sentencia->bindParam(':costo', $data['costo'], PDO::PARAM_STR);
+		$sentencia->bindParam(':cantidad', $data['cantidad'], PDO::PARAM_INT);
+
+		return $sentencia->execute();
+	}
+
 	public function get_productos() {
 		$sentencia = $this->pdo->prepare("SELECT * FROM productos");
 

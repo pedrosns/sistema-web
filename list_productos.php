@@ -27,6 +27,7 @@ $productos = $db->get_productos();
 	      <th scope="col">Descripcion</th>
 	      <th scope="col">Costo</th>
 	      <th scope="col">Cantidad</th>
+	      <th scope="col">Acciones</th>
 	    </tr>
 	  </thead>
 	  <tbody>
@@ -39,6 +40,7 @@ $productos = $db->get_productos();
 		      <td>'.$productos[$i]['descripcion'].'</td>
 		      <td>'.$productos[$i]['costo'].' $</td>
 		      <td>'.$productos[$i]['cantidad'].'</td>
+		      <td><a href="update_producto.php" class="btn btn-primary">Update</a></td>
 		    </tr>';
 	  	}
 	    ?>

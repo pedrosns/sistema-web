@@ -1,9 +1,13 @@
 <?php
 include_once 'database.php';
+include_once 'controllers/product_controller.php';
 
 
 if(isset($_POST['accion'])) {
 	$db = new Database();
+	$db->conectar();
+
+	$productController = new ProductController($db);
 
 	$accion = $_POST['accion'];
 
@@ -20,6 +24,14 @@ if(isset($_POST['accion'])) {
 		} else {
 			echo "No se pudo guardar el producto";
 		}
+	}
+
+	if($accion === 'update_producto') {
+		
+		$productoId = $_POST['id'];
+		$data = $_POST;
+
+		$productController->update($productoId, $data);
 	}
 }
 ?>
