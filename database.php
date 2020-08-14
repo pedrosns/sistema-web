@@ -5,10 +5,14 @@ class Database {
 
 	public function conectar() {
 		try {
-			$this->pdo = new PDO('mysql:host=127.0.0.1;dbname=restaurante', 'root', 'canaima');
+			$this->pdo = new PDO('mysql:host=127.0.0.1;dbname=restaurante', 'root', '');
 		} catch (Exception $e) {
 			echo $e;
 		}
+	}
+
+	public function get_error(){
+		return $this->pdo->errorInfo();
 	}
 
 	public function ejecutar($query) {
@@ -23,6 +27,31 @@ class Database {
  		// Fetch para obtener el siguiente resultado de la consulta
 		return $sentencia->fetch(PDO::FETCH_ASSOC);
 	}
+
+	//crear empleados en db 
+	public function create_empleado($data){
+        $sentencia = $this->pdo->prepare("INSERT INTO empleados (nombre, apellidos, cedula) VALUES (:nombre, :apellidos, :cedula)");
+
+        $sentencia->bindParam(':nombre', $data['nombre'], PDO::PARAM_STR);
+        $sentencia->bindParam(':apellidos', $data['apellidos'], PDO::PARAM_STR);
+        $sentencia->bindParam(':cedula', $data['cedula'], PDO::PARAM_INT);
+
+        return $sentencia->execute();
+
+	}
+	// actualizar lista de empleados
+	public function update_empleado($id, $data){
+		$sentencia= $this->pdo->prepare("UPDATE empleados SET nombre=:nombre, apellidos=:apellidos, cedula=:cedula
+		WHERE id=:id");
+
+		$sentencia->bindParam(':id', $id, PDO::PARAM_INT);
+		$sentencia->bindParam(':nombre', $data['nombre'], PDO::PARAM_STR);
+		$sentencia->bindParam(':apellidos', $data['apellidos'], PDO::PARAM_STR);
+		$sentencia->bindParam(':cedula', $data['cedula'], PDO::PARAM_INT);
+
+		return $sentencia->execute();
+	}
+
 
 	public function get_empleados() {
 		$sentencia = $this->pdo->prepare("SELECT * FROM empleados");
