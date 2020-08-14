@@ -32,7 +32,8 @@ $productos = $db->get_productos();
 	  </thead>
 	  <tbody>
 	  	<?php
-	  	for ($i=0; $i < count($productos); $i++) { 
+	  	for ($i=0; $i < count($productos); $i++) {
+	  		$url = 'update_producto.php?id='.$productos[$i]['id'];
 	  		echo '
 	  		<tr>
 		      <td>'.$productos[$i]['id'].'</td>
@@ -40,7 +41,7 @@ $productos = $db->get_productos();
 		      <td>'.$productos[$i]['descripcion'].'</td>
 		      <td>'.$productos[$i]['costo'].' $</td>
 		      <td>'.$productos[$i]['cantidad'].'</td>
-		      <td><a href="update_producto.php" class="btn btn-primary">Update</a></td>
+		      <td><a href="'.$url.'" class="btn btn-primary">Update</a></td>
 		    </tr>';
 	  	}
 	    ?>

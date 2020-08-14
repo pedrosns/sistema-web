@@ -1,3 +1,18 @@
+<?php
+include_once 'database.php';
+
+if(isset($_GET['id'])) {
+	$db = new Database();
+	$db->conectar();
+
+	$product_id = $_GET['id'];
+
+	$product = $db->get_product($product_id);
+} else {
+	exit();
+}
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,21 +22,27 @@
 <body>
 	<form action="manager.php" method="POST">
 		<input type="hidden" name="accion" value="update_producto">
-
-		<label for="id">ID</label><br>
-		<input type="text" name="id"><br>
-
+		<?php
+			echo '<input type="hidden" name="id" value="'.$product['id'].'"><br>';
+		?>
 		<label for="nombre">Nombre</label><br>
-		<input type="text" name="nombre"><br>
-
+		<?php
+			echo '<input type="text" name="nombre" value="'.$product['nombre'].'"><br>';
+		?>
 		<label for="descripcion">Descripcion</label><br>
-		<textarea name="descripcion"></textarea><br>
+		<?php
+		echo '<textarea name="descripcion">'.$product['descripcion'].'</textarea><br>';
+		?>
 
 		<label for="costo">Costo</label><br>
-		<input type="text" name="costo"><br>
+		<?php
+			echo '<input type="text" name="costo" value="'.$product['costo'].'"><br>';
+		?>
 
 		<label for="cantidad">Cantidad</label><br>
-		<input type="text" name="cantidad"><br>
+		<?php
+			echo '<input type="text" name="cantidad" value="'.$product['cantidad'].'"><br>';
+		?>
 		<br>
 		<input type="submit" class="btn btn-success" value="Guardar">
 	</form>
