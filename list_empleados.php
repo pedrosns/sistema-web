@@ -25,17 +25,20 @@ $empleados = $db->get_empleados();
 	      <th scope="col">Nombre</th>
 	      <th scope="col">Apellidos</th>
 	      <th scope="col">Cedula</th>
+		  <th scope="col">Acciones</th>
 	    </tr>
 	  </thead>
 	  <tbody>
 	  	<?php
 	  	for ($i=0; $i < count($empleados); $i++) { 
-	  		echo '
+			$url = 'update_empleado.php?id='.$empleados[$i]['id'];  
+			echo '
 	  		<tr>
 		      <td>'.$empleados[$i]['id'].'</td>
 		      <td>'.$empleados[$i]['nombre'].'</td>
 		      <td>'.$empleados[$i]['apellidos'].'</td>
-		      <td>'.$empleados[$i]['cedula'].'</td>
+			  <td>'.$empleados[$i]['cedula'].'</td>
+			  <td><a href="'.$url.'" class="btn btn-primary">Update</a></td>
 		    </tr>';
 	  	}
 	    ?>

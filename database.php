@@ -5,7 +5,7 @@ class Database {
 
 	public function conectar() {
 		try {
-			$this->pdo = new PDO('mysql:host=127.0.0.1;dbname=restaurante', 'root', 'canaima');
+			$this->pdo = new PDO('mysql:host=127.0.0.1;dbname=restaurante', 'root', '');
 		} catch (Exception $e) {
 			echo $e;
 		}
@@ -52,6 +52,14 @@ class Database {
 		return $sentencia->execute();
 	}
 
+	public function get_empleado($id){
+		$sentencia = $this->pdo->prepare("SELECT * FROM empleados WHERE id=:id");
+
+		$sentencia->bindParam('id' , $id , PDO::PARAM_INT);
+		$sentencia->execute();
+
+		return $sentencia->fetch(PDO::FETCH_ASSOC);
+	}
 
 	public function get_empleados() {
 		$sentencia = $this->pdo->prepare("SELECT * FROM empleados");
