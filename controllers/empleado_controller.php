@@ -1,15 +1,9 @@
 <?php 
+include_once 'base_controller.php';
 
-class EmpleadoController {
-	private $db;
-
-	public function __construct($db) {
-		$this->db = $db;
-	}
-
-    
+class EmpleadoController extends BaseController {
     public function update($id, $datos) {
-		$resultado = $this->db->update_empleado($id, $datos);
+		$resultado = $this->get_db()->update_empleado($id, $datos);
 		if($resultado) {
 			echo "se actualizo";
 		}

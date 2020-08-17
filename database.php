@@ -5,7 +5,7 @@ class Database {
 
 	public function conectar() {
 		try {
-			$this->pdo = new PDO('mysql:host=127.0.0.1;dbname=restaurante', 'root', '');
+			$this->pdo = new PDO('mysql:host=127.0.0.1;dbname=restaurante', 'root', 'canaima');
 		} catch (Exception $e) {
 			echo $e;
 		}
@@ -91,6 +91,14 @@ class Database {
 		$sentencia->bindParam(':descripcion', $data['descripcion'], PDO::PARAM_STR);
 		$sentencia->bindParam(':costo', $data['costo'], PDO::PARAM_STR);
 		$sentencia->bindParam(':cantidad', $data['cantidad'], PDO::PARAM_INT);
+
+		return $sentencia->execute();
+	}
+
+	public function delete_producto($id) {
+		$sentencia = $this->pdo->prepare("DELETE FROM productos WHERE id=:id;");
+
+		$sentencia->bindParam(':id', $id, PDO::PARAM_INT);
 
 		return $sentencia->execute();
 	}

@@ -3,13 +3,17 @@ include_once 'database.php';
 include_once 'controllers/product_controller.php';
 include_once 'controllers/empleado_controller.php';
 
-if(isset($_POST['accion'])) {
+if(isset($_POST['accion']) || isset($_GET['accion'])) {
 	$db = new Database();
 	$db->conectar();
 
 	$productController = new ProductController($db);
 
-	$accion = $_POST['accion'];
+	if(array_key_exists('accion', $_POST)) {
+		$accion = $_POST['accion'];
+	} else {
+		$accion = $_GET['accion'];
+	}
 
 	if($accion === 'create_producto') {
 		$db->conectar();
@@ -32,6 +36,11 @@ if(isset($_POST['accion'])) {
 		$data = $_POST;
 
 		$productController->update($productoId, $data);
+	}
+
+	if($accion === 'delete_producto') {
+		$productoId = $_GET['id'];
+		$productController->delete($productoId);
 	}
 }
 

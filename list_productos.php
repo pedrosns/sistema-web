@@ -34,6 +34,7 @@ $productos = $db->get_productos();
 	  	<?php
 	  	for ($i=0; $i < count($productos); $i++) {
 	  		$url = 'update_producto.php?id='.$productos[$i]['id'];
+	  		$url2 = 'manager.php?accion=delete_producto&id='.$productos[$i]['id'];
 	  		echo '
 	  		<tr>
 		      <td>'.$productos[$i]['id'].'</td>
@@ -41,7 +42,10 @@ $productos = $db->get_productos();
 		      <td>'.$productos[$i]['descripcion'].'</td>
 		      <td>'.$productos[$i]['costo'].' $</td>
 		      <td>'.$productos[$i]['cantidad'].'</td>
-		      <td><a href="'.$url.'" class="btn btn-primary">Update</a></td>
+		      <td>
+		      <a href="'.$url.'" class="btn btn-primary">Update</a>
+		      <a href="'.$url2.'" class="btn btn-danger">Delete</a>
+		      </td>
 		    </tr>';
 	  	}
 	    ?>
