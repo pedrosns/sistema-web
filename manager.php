@@ -2,12 +2,14 @@
 include_once 'database.php';
 include_once 'controllers/product_controller.php';
 include_once 'controllers/empleado_controller.php';
+include_once 'controllers/user_controller.php';
 
 if(isset($_POST['accion']) || isset($_GET['accion'])) {
 	$db = new Database();
 	$db->conectar();
 
 	$productController = new ProductController($db);
+	$userController = new UserController($db);
 
 	if(array_key_exists('accion', $_POST)) {
 		$accion = $_POST['accion'];
@@ -41,6 +43,11 @@ if(isset($_POST['accion']) || isset($_GET['accion'])) {
 	if($accion === 'delete_producto') {
 		$productoId = $_GET['id'];
 		$productController->delete($productoId);
+	}
+
+	if($accion === 'register_user') {
+		$datos = $_POST;
+		$userController->register($datos);
 	}
 }
 

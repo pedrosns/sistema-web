@@ -121,6 +121,24 @@ class Database {
 		return $sentencia->fetchAll(PDO::FETCH_ASSOC);
 	}
 
+	public function create_user($data) {
+		$sentencia = $this->pdo->prepare("INSERT INTO usuarios (username, email, password ) VALUES (:username, :email, :password)");
+
+		$sentencia->bindParam(':username', $data['username'], PDO::PARAM_STR);
+		$sentencia->bindParam(':email', $data['email'], PDO::PARAM_STR);
+		$sentencia->bindParam(':password', $data['password'], PDO::PARAM_STR);
+		return $sentencia->execute();
+	}
+
+	public function validate_unique($tabla, $campo, $valor) {
+		$sentencia = $this->pdo->prepare("SELECT COUNT(*) AS registros FROM ".$tabla." WHERE ".$campo."=:valor");
+		
+		$sentencia->bindParam(':valor', $valor, PDO::PARAM_STR);
+
+		$sentencia->execute();
+
+		return $sentencia->fetch(PDO::FETCH_ASSOC);
+	}
 	
 }
 

@@ -18,10 +18,10 @@
       <li class="nav-item">
         <a class="nav-link" href="list_productos.php">Productos</a>
       </li>
-      <!-- <li class="nav-item">
-        <a class="nav-link" href="#">Pricing</a>
+       <li class="nav-item">
+        <a class="nav-link" href="register_user.php">Registro</a>
       </li>
-      <li class="nav-item">
+      <!--<li class="nav-item">
         <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
       </li> -->
     </ul>
