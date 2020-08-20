@@ -5,7 +5,7 @@ class Database {
 
 	public function conectar() {
 		try {
-			$this->pdo = new PDO('mysql:host=127.0.0.1;dbname=restaurante', 'root', '');
+			$this->pdo = new PDO('mysql:host=127.0.0.1;dbname=restaurante', 'root', 'canaima');
 		} catch (Exception $e) {
 			echo $e;
 		}
@@ -142,6 +142,17 @@ class Database {
 		
 		$sentencia->bindParam(':valor', $valor, PDO::PARAM_STR);
 
+		$sentencia->execute();
+
+		return $sentencia->fetch(PDO::FETCH_ASSOC);
+	}
+
+	public function login($username, $password) {
+		// Validar que existe ese usuario con el username enviado
+		$sentencia = $this->pdo->prepare("SELECT id, username, email FROM usuarios WHERE (username=:username OR email=:username) AND password=:password");
+		
+		$sentencia->bindParam(':username', $username, PDO::PARAM_STR);
+		$sentencia->bindParam(':password', $password, PDO::PARAM_STR);
 		$sentencia->execute();
 
 		return $sentencia->fetch(PDO::FETCH_ASSOC);

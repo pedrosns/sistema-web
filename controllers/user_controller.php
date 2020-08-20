@@ -1,9 +1,33 @@
 <?php 
 include_once 'base_controller.php';
 
+session_start();
+
 class UserController extends BaseController {
 
-	public function login($datos) {}
+	public function login($datos) {
+		$username = $datos['username'];
+		$password = md5($datos['password']);
+		$result = $this->get_db()->login($username, $password);
+
+		if(!empty($result)) {
+			$_SESSION['user_id'] = $result['id'];
+			$_SESSION['username'] = $result['username'];
+
+			$this->goTo('index.php');
+		} else {
+			echo "Credenciales invalidas";
+		}
+	}
+
+	public function logout() {
+		// session_destroy();
+
+		unset($_SESSION['user_id']);
+		unset($_SESSION['username']);
+
+		$this->goTo('index.php');
+	}
 
 	public function register($datos) {
 

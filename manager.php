@@ -49,6 +49,15 @@ if(isset($_POST['accion']) || isset($_GET['accion'])) {
 		$datos = $_POST;
 		$userController->register($datos);
 	}
+
+	if($accion === 'login_user') {
+		$datos = $_POST;
+		$userController->login($datos);
+	}
+
+	if($accion == 'logout') {
+		$userController->logout();
+	}
 }
 
 if (isset($_POST['agregar']) || isset($_GET['agregar'])){

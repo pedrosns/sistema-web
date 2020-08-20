@@ -10,6 +10,10 @@ class BaseController {
 	public function get_db() {
 		return $this->db;
 	}
+
+	public function goTo($route) {
+		header('Location: '.$route);
+	}
 }
 
 
