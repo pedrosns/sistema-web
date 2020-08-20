@@ -44,13 +44,18 @@ if(isset($_POST['accion']) || isset($_GET['accion'])) {
 	}
 }
 
-if (isset($_POST['agregar'])){
+if (isset($_POST['agregar']) || isset($_GET['agregar'])){
 	$db = new Database();
 	$db->conectar();
 
 	$empleado_controller = new EmpleadoController($db);
-
-	$agregar = $_POST['agregar'];
+	
+	if(array_key_exists('agregar', $_POST)) {
+		$agregar = $_POST['agregar'];
+	} else {
+		$agregar = $_GET['agregar'];
+	}
+	
 
 	if ($agregar === 'create_empleado'){
 		$db->conectar();
@@ -73,6 +78,13 @@ if (isset($_POST['agregar'])){
 
 		$empleado_controller->update($empleadoId, $data);
 
+	}
+
+	if($agregar === 'delete_empleado') {
+		$empleadoId = $_GET['id'];
+		$empleado_controller->delete($empleadoId);
+	}else{
+		print_r($db->get_error());
 	}
 }
 
