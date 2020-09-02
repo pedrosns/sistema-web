@@ -18,20 +18,30 @@ session_start();
 	?>
 	<form action="manager.php" method="POST">
 		<input type="hidden" name="accion" value="create_producto">
+		<input type="hidden" name="id" value="">
+
+		
 
 		<label for="Nombre">Nombre</label><br>
 		<input type="text" name="nombre"><br>
+		<p style='color:red'><?=isset($_SESSION['errores']['nombre']) ? $_SESSION['errores']['nombre'] :''; ?></p>
 
 		<label for="Descripcion">Descripcion</label><br>
 		<textarea name="descripcion"></textarea><br>
+		<p style='color:red'><?=isset($_SESSION['errores']['descripcion']) ? $_SESSION['errores']['descripcion'] :''; ?></p>
 
 		<label for="costo">Costo</label><br>
 		<input type="text" name="costo"><br>
+		<p style='color:red'><?=isset($_SESSION['errores']['costo']) ? $_SESSION['errores']['costo'] :''; ?></p>
 
 		<label for="cantidad">Cantidad</label><br>
 		<input type="text" name="cantidad"><br>
+		<p style='color:red'><?=isset($_SESSION['errores']['cantidad']) ? $_SESSION['errores']['cantidad'] :''; ?></p>
+
 		<br>
 		<input type="submit" class="btn btn-success" value="Guardar">
+		<?php unset($_SESSION['errores']);?>
+
 	</form>
 </body>
 </html>

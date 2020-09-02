@@ -1,4 +1,5 @@
 <?php
+
 include_once 'database.php';
 include_once 'controllers/product_controller.php';
 include_once 'controllers/empleado_controller.php';
@@ -10,6 +11,7 @@ if(isset($_POST['accion']) || isset($_GET['accion'])) {
 
 	$productController = new ProductController($db);
 	$userController = new UserController($db);
+	$empleadoController= new EmpleadoController($db);
 
 	if(array_key_exists('accion', $_POST)) {
 		$accion = $_POST['accion'];
@@ -63,18 +65,7 @@ if (isset($_POST['agregar']) || isset($_GET['agregar'])){
 	
 
 	if ($agregar === 'create_empleado'){
-		$db->conectar();
-		$empleado = $_POST;
-
-		$exito = $db->create_empleado($empleado);
-
-			if ($exito) {
-				echo "el producto se ha agregado correctamente";
-				echo '<a href="list_empleados.php" class="btn btn-success">Volver</a>';
-			}else{
-				print_r ($db->get_error());
-			}
-	
+		$empleado_controller->create($_POST);
 	}
 
 	if ($agregar === 'update_empleado'){

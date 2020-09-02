@@ -1,7 +1,10 @@
 <?php 
 include_once 'base_controller.php';
 
-session_start();
+	if (!session_id ())
+	{
+	session_start();
+		} 
 
 class UserController extends BaseController {
 

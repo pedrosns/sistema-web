@@ -5,7 +5,7 @@ class Database {
 
 	public function conectar() {
 		try {
-			$this->pdo = new PDO('mysql:host=127.0.0.1;dbname=restaurante', 'root', 'canaima');
+			$this->pdo = new PDO('mysql:host=127.0.0.1;dbname=restaurante', 'root', '');
 		} catch (Exception $e) {
 			echo $e;
 		}
