@@ -13,16 +13,13 @@ class Validador{
     }
 
     public function required($data){
-
-        return empty($data) ;
-    
-        
+        return empty($data) ;    
     }
 
     public function only_number($data){
         return !ctype_digit($data);
-
     }
+    
     public function only_string($data){
        return !preg_match("/^[A-Za-z]+/" , $data);
     }
