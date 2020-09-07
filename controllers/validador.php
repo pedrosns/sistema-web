@@ -7,6 +7,8 @@ class Validador{
             'required'=> ':field debe ser requerido',
             'only_number'=> ':field solo admite numeros',
             'only_string' => ':field solo admite letras',
+            'max_length'=> ':field debe incluir un maximo de 15 caracteres',
+            'min_length'=> ':field debe incluir un minimo de 5 caracteres',
         ];
 
 
@@ -23,6 +25,23 @@ class Validador{
     public function only_string($data){
        return !preg_match("/^[A-Za-z]+/" , $data);
     }
+    public function max_length($data, $max_size){
+        $size=strlen($data);
+        if($size <= $max_size){
+            return false;
+        }else {
+            return true;
+        }
+    }
+
+    public function min_length($data, $min_size){
+        $size=strlen($data);
+        if ($size >= $min_size) {
+            return false;
+        }else {
+            return true;
+        }
+    }
     //primer parametro datos segundo reglas
 
     //'nombre' => 'required', 'apellido' => 'required']
@@ -30,8 +49,48 @@ class Validador{
 
     public function validate($data, $rules=[]){
         $errors=[];
-        foreach ($rules as $field => $validador) {
-            if ($validador == 'required') {
+        foreach ($rules as $field => $str_validadores) {
+             $validators = explode('|', $str_validadores);
+             
+                for ($i=0; $i <count($validators) ; $i++) { 
+                    // ejemplo:maxlength:parametro
+                    $validador= $validators[$i];
+
+                    $hasparams=strpos($validador,':');
+                    if ($hasparams != false) {
+                        /*param_array trae un array de 2 valores,
+                         donde la primera posicion es el nombre del validador y la segunda los parametros*/
+                        $param_array=explode(':',$validador);
+                        $param = $param_array[1];
+                        $validador=$param_array[0];
+                        $result=$this->{ $validador }($data[$field],$param);
+
+                    }else {
+                        $result=$this->{ $validators[$i] }($data[$field]);
+
+                    }
+
+                    
+
+                    
+                    if ($result) {
+                        $message= $this->messages[$validador];
+                        $m= str_replace(':field', $field, $message);
+
+                        if (array_key_exists($field,$errors)) {
+                            array_push($errors[$field],$m);
+                        }else{
+                            $errors[$field]=[];
+                            array_push($errors[$field],$m);
+                            
+                        }   
+                            break;
+                    }
+                            
+                    
+                }
+
+            /*if ($validador == 'required') {
                 $result=$this->required($data[$field]);
                 if ($result) {
                     $message= $this->messages[$validador];
@@ -82,7 +141,8 @@ class Validador{
                     }
                 
             }
-    
+            */
+
         }
         return $errors;
     }
