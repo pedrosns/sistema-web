@@ -7,8 +7,8 @@ class Validador{
             'required'=> ':field debe ser requerido',
             'only_number'=> ':field solo admite numeros',
             'only_string' => ':field solo admite letras',
-            'max_length'=> ':field debe incluir un maximo de 15 caracteres',
-            'min_length'=> ':field debe incluir un minimo de 5 caracteres',
+            'max_length'=> ':field debe incluir un maximo de :length caracteres',
+            'min_length'=> ':field debe incluir un minimo de :length caracteres',
         ];
 
 
@@ -75,7 +75,14 @@ class Validador{
                     
                     if ($result) {
                         $message= $this->messages[$validador];
-                        $m= str_replace(':field', $field, $message);
+                        if ($validador== 'max_length' || $validador='min_length') {
+                            $m= str_replace(':field', $field, $message);
+                            $m= str_replace(':length', $param, $m);
+
+                        }else {
+                            $m= str_replace(':field', $field, $message);
+
+                        }
 
                         if (array_key_exists($field,$errors)) {
                             array_push($errors[$field],$m);

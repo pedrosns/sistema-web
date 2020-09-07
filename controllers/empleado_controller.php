@@ -11,7 +11,7 @@ class EmpleadoController extends BaseController {
     
 
 		$rules=[
-			'nombre'=> 'max_length:20|min_length:5|only_string',
+			'nombre'=> 'max_length:15|min_length:8|only_string',
 			'apellidos'=>'required|only_string',
 			'cedula'=> 'only_number',
 		];
