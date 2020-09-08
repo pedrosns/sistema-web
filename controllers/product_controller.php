@@ -4,31 +4,24 @@ include_once 'base_controller.php';
 
 class ProductController extends BaseController {
 	public function create($data) {
-		/*if (!$this->validador->validate_data($data)) {
-			if(!$this->validate_types($data)){
-				$exito = $this->get_db()->crear_producto($data);
 
-				if($exito) {
-					$_SESSION['message_product'] = "Producto agregado";
-				} else {
-					$_SESSION['message_product'] = "No se pudo guardar el producto";
-				}
-			}else{
-				$_SESSION['message_product'] = "los tipos de datos no coinciden";
-			}
-			
+		if(!$this->isAuthenticated()) {
+			echo "User not logged";
+			return null; // Matar la funcion
+		}
 
-			
-		}else{
-			$_SESSION['message_product'] = "Debe rellenar todos los datos del formulario";
-		}*/
+		if(!$this->has_permission('create_product')) {
+			echo "User has not permission";
+			return null; // Matar la funcion
+		}
+
 		$rules=[
 			'nombre'=> 'required',
 			'descripcion'=> 'required',
 			'costo'=> 'only_number|required',
 			'cantidad'=> 'only_number|required',
 		];
-		$errores = $this->validador->validate($data, $rules);		
+		$errores = $this->validador->validate($data, $rules);
 
 		if (count($errores)>0) {
 			// join funcion para unir elementos de un array por medio de un separador, 
@@ -42,6 +35,8 @@ class ProductController extends BaseController {
 
 			//print_r($errores);
 		}else{
+			$this->get_db()->crear_producto($data);
+
 			$_SESSION['message_product'] = "Producto agregado";
 		}
 		

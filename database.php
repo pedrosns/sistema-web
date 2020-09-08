@@ -5,7 +5,7 @@ class Database {
 
 	public function conectar() {
 		try {
-			$this->pdo = new PDO('mysql:host=127.0.0.1;dbname=restaurante', 'root', '');
+			$this->pdo = new PDO('mysql:host=127.0.0.1;dbname=restaurante', 'root', 'canaima');
 		} catch (Exception $e) {
 			echo $e;
 		}
@@ -158,6 +158,23 @@ class Database {
 		return $sentencia->fetch(PDO::FETCH_ASSOC);
 	}
 	
+
+	public function get_permissions($user_id) {
+		$sentencia = $this->pdo->prepare("SELECT 
+			permisos.nombre,
+			permisos.codigo
+			FROM usuarios_permisos 
+			INNER JOIN usuarios ON usuarios.id = usuarios_permisos.usuario_id
+			INNER JOIN permisos ON permisos.id = usuarios_permisos.permiso_id
+			WHERE usuarios.id = :user_id
+		");
+		
+		$sentencia->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+
+		$sentencia->execute();
+
+		return $sentencia->fetchAll(PDO::FETCH_ASSOC);
+	}
 }
 
 ?>
