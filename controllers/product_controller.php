@@ -18,8 +18,8 @@ class ProductController extends BaseController {
 		$rules=[
 			'nombre'=> 'required',
 			'descripcion'=> 'required',
-			'costo'=> 'only_number',
-			'cantidad'=> 'only_number',
+			'costo'=> 'only_number|required',
+			'cantidad'=> 'only_number|required',
 		];
 		$errores = $this->validador->validate($data, $rules);
 
