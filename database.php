@@ -5,7 +5,7 @@ class Database {
 
 	public function conectar() {
 		try {
-			$this->pdo = new PDO('mysql:host=127.0.0.1;dbname=restaurante', 'root', '');
+			$this->pdo = new PDO('mysql:host=127.0.0.1;dbname=restaurante', 'root', 'canaima');
 		} catch (Exception $e) {
 			echo $e;
 		}
@@ -78,12 +78,13 @@ class Database {
 	}
 
 	public function crear_producto($data) {
-		$sentencia = $this->pdo->prepare("INSERT INTO productos (nombre, descripcion, costo, cantidad) VALUES (:nombre, :descripcion, :costo, :cantidad)");
+		$sentencia = $this->pdo->prepare("INSERT INTO productos (nombre, descripcion, costo, cantidad, categoria_id) VALUES (:nombre, :descripcion, :costo, :cantidad, :categoria_id)");
 
 		$sentencia->bindParam(':nombre', $data['nombre'], PDO::PARAM_STR);
 		$sentencia->bindParam(':descripcion', $data['descripcion'], PDO::PARAM_STR);
 		$sentencia->bindParam(':costo', $data['costo'], PDO::PARAM_STR);
 		$sentencia->bindParam(':cantidad', $data['cantidad'], PDO::PARAM_INT);
+		$sentencia->bindParam(':categoria_id', $data['categoria_id'], PDO::PARAM_INT);
 
 		return $sentencia->execute();
 	}
@@ -184,8 +185,10 @@ class Database {
 
 		$sentencia->execute();
 
-		return $sentencia->fetchAll(PDO::FETCH_ASSOC);
-								 
+		return $sentencia->fetchAll(PDO::FETCH_ASSOC);						 
+	}
+
+	public function search_products($query) {
 		
 	}
 }

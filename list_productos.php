@@ -18,6 +18,14 @@ $productos = $db->get_productos();
 <body>
 	<a href="index.php" class="btn btn-primary">Inicio</a>
 	<a href="create_producto.php" class="btn btn-primary">Nuevo producto</a>
+	<br/><br/>
+	<div class="input-group flex-nowrap">
+  		<div class="input-group-prepend">
+    		<span class="input-group-text" id="addon-wrapping">@</span>
+  		</div>
+	  	<input type="text" class="form-control" placeholder="Busqueda.." aria-describedby="addon-wrapping">
+	  	<button type="button" class="btn btn-success">Buscar</button>
+	</div>
 	<br/>
 	<table class="table table-bordered">
 	  <thead>

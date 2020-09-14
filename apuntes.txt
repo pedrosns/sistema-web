@@ -1,0 +1,53 @@
+WHERE user_id = 10
+
+// Query de ejemplo
+
+SELECT * FROM productos
+WHERE nombre ILIKE 'a%';
+
+LIKE - ILIKE
+
+todo lo que comience 'palabra%'
+
+// clave de busqueda
+'frutas%'
+
+// Resultados
+frutas
+frutas secas
+frutas 1
+frutas2
+
+
+todo lo que termine '%palabra'
+
+// clave de busqueda
+'%frio'
+
+juego frio
+frutos frio
+cualquier cosafrio
+
+
+
+todo lo que contenga '%palabra%'
+
+EJ:
+
+// clave busqueda
+'%seco%'
+
+fruto secos
+jugo seco
+limon seco
+planchado al seco
+
+
+
+'a%'
+'%x'
+'%pedro%'
+
+
+PEDRO != pedro para LIKE
+PEDRO == pedro para ILIKE
