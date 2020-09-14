@@ -10,7 +10,7 @@ class ProductController extends BaseController {
 			return null; // Matar la funcion
 		}
 
-		if(!$this->has_permission('create_product')) {
+		if(!$this->has_permission(CREATE_PRODUCT)) {
 			echo "User has not permission";
 			return null; // Matar la funcion
 		}
@@ -45,6 +45,17 @@ class ProductController extends BaseController {
 	}
 
 	public function update($id, $datos) {
+		if(!$this->isAuthenticated()) {
+			echo "User not logged";
+			return null; // Matar la funcion
+		}
+
+		if(!$this->has_permission(UPDATE_PRODUCTO)) {
+			echo "User has not permission";
+			return null; // Matar la funcion
+		}
+
+
 		$resultado = $this->get_db()->update_producto($id, $datos);
 		if($resultado) {
 			$_SESSION['message_product'] = "Se actualizo el producto";
@@ -56,6 +67,15 @@ class ProductController extends BaseController {
 	}
 
 	public function delete($id) {
+		if(!$this->isAuthenticated()) {
+			echo "User not logged";
+			return null; // Matar la funcion
+		}
+
+		if(!$this->has_permission(DELETE_PRODUCTO)) {
+			echo "User has not permission";
+			return null; // Matar la funcion
+		}
 		$resultado = $this->get_db()->delete_producto($id);
 		if($resultado) {
 			echo "se elemino <a href='list_productos.php'>Regresar</a>";

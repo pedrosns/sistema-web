@@ -4,6 +4,10 @@ if (!session_id ()) {
 }
 
 include_once 'validador.php';
+define('CREATE_PRODUCT', 'create_product');
+define('UPDATE_PRODUCTO', 'update_producto');
+define('DELETE_PRODUCTO', 'delete_producto');
+
 class BaseController {
 	private $db;
     public $validador;

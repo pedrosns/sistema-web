@@ -1,5 +1,20 @@
 <?php
 session_start();
+include 'database.php';
+$db= new Database();
+$db->conectar();
+$categorias= $db->get_categories();
+$categorias_opciones='';
+
+for ($i=0; $i <count($categorias) ; $i++) { 
+	$categoria=$categorias[$i];
+	
+	
+	$categorias_opciones= $categorias_opciones.'<option value="'.$categoria['id'].'">'.$categoria['nombre'].'</option>';
+
+}
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -37,6 +52,10 @@ session_start();
 		<label for="cantidad">Cantidad</label><br>
 		<input type="text" name="cantidad"><br>
 		<p style='color:red'><?=isset($_SESSION['errores']['cantidad']) ? $_SESSION['errores']['cantidad'] :''; ?></p>
+
+		<label for="categoria_id">Categorias</label><br>
+		<select name="categoria_id" id="categoria_id"><?=$categorias_opciones?></select><br>
+		
 
 		<br>
 		<input type="submit" class="btn btn-success" value="Guardar">
