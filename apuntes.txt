@@ -51,3 +51,69 @@ planchado al seco
 
 PEDRO != pedro para LIKE
 PEDRO == pedro para ILIKE
+
+
+
+// Metodos SQL (agregacion)
+
+COUNT - contar
+
+COUNT(*) - contar todas las filas que devuelme mi consulta
+COUNT(campo) - contar campo de la tabla especifica
+
+
+COUNT + WHERE // contar basandonos es en una condicion
+// contamos cuantos productos tiene categoria 2
+select count(*) FROM productos WHERE categoria_id = 2;
+
+COUNT + GROUP BY // lo veremos despues a mas detalle
+
+
+SUM - acumulador
+select sum(costo) from productos;
+
+SUM + WHERE
+select sum(costo) from productos where categoria_id = 2
+
+
+// ordenamiento
+ORDER BY
+
+
+// estructura con where
+SELECT campos FROM tabla WHERE campo=valor ORDER BY campo, campo1, campo3
+//estructura sin where
+SELECT campos FROM tabla ORDER BY campo, campo1, campo3
+
+// cambiar forma de ordenar
+// ASC -> ascendente
+// DESC -> descendente
+
+SELECT campos FROM tabla ORDER BY campo ASC
+
+// por defecto el ordenamiento es asc
+
+
+
+FILTROS COMPUESTOS
+WHERE combinado
+
+>=
+<=
+=
+IN // buscar dentro de una collecion de datos
+EJ: (1,2,3,4,5)
+EJ: consulta -> (SELECT id FROM tabla)
+
+BETWEEN // para rangos y es usado en combinacion con AND
+
+SELECT * FROM productos WHERE costo BETWEEN 100 AND 1000;
+
+// validar fechas
+
+SELECT * FROM visitas WHERE ultima_vez BETWEEN '19-09-2000' AND '19-09-2020';
+
+
+operadores logicos
+AND
+OR
