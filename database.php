@@ -5,7 +5,7 @@ class Database {
 
 	public function conectar() {
 		try {
-			$this->pdo = new PDO('mysql:host=127.0.0.1;dbname=restaurante', 'root', 'canaima');
+			$this->pdo = new PDO('mysql:host=127.0.0.1;dbname=restaurante', 'root', '');
 		} catch (Exception $e) {
 			echo $e;
 		}
@@ -189,7 +189,25 @@ class Database {
 	}
 
 	public function search_products($query) {
+		$sentencia = $this->pdo->prepare("SELECT * FROM productos WHERE LOWER(productos.nombre) LIKE '%".$query."%'");
+
+		$sentencia->execute();
+
+		return $sentencia->fetchAll(PDO::FETCH_ASSOC);
+
+	}
+
+	public function filter_by_category($category_id){
 		
+
+		$sentencia= $this->pdo->prepare("SELECT * FROM productos WHERE productos.categoria_id =:category_id");
+
+		
+		$sentencia->bindParam(':category_id' , $category_id, PDO::PARAM_INT);
+		$sentencia->execute();
+
+		return $sentencia->fetchAll(PDO::FETCH_ASSOC);
+
 	}
 }
 
